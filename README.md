@@ -45,7 +45,7 @@ the message is sent with the following message property:
 
 ## Code example
 
-This module is based on an example shown (here)[https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module]
+This module is based on an example shown [here](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module)
 
 ## Contribute
 
