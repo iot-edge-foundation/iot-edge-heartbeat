@@ -16,11 +16,13 @@ You can pull it with **docker pull svelde/iot-edge-heartbeat** but I suggest to 
 
 ## Module Twin
 
-This module supports one property in the module twin:
+This module supports one 'desired' property in the module twin:
 
 - "interval":5000 
 
 This alters the interval of the heartbeat in milliseconds. The default value is 5000.
+
+After reading this value, the module will report the value back. 
 
 ## Routing input and outputs
 
