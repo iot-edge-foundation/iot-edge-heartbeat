@@ -40,7 +40,7 @@ private class HeartbeatMessageBody
 }
 ```
 
-the message is sent with the following property:
+the message is sent with the following message property:
 - "content-type", "application/edge-heartbeat-json"
 
 ## Contribute
