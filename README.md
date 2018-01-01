@@ -43,6 +43,10 @@ private class HeartbeatMessageBody
 the message is sent with the following message property:
 - "content-type", "application/edge-heartbeat-json"
 
+## Code example
+
+This module is based on an example shown (here)[https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module]
+
 ## Contribute
 
 This logic is licenced under the MIT license.
