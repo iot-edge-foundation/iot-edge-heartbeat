@@ -45,7 +45,11 @@ the message is sent with the following message property:
 
 ## Code example
 
-This module is based on an example shown [here](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module)
+This module was based on an Public Preview example shown [here](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module)
+
+With the introduction of General Available, some breaking changes are introduced. A new ModuleClient is introduced to replace the DeviceClient.
+
+I have updated the code.
 
 ## Contribute
 
