@@ -16,6 +16,7 @@ namespace iot.edge.heartbeat
 
     class Program
     {
+        private static int _counter = 0;
         static void Main(string[] args)
         {
             Init().Wait();
@@ -72,9 +73,12 @@ namespace iot.edge.heartbeat
                     throw new InvalidOperationException("UserContext doesn't contain " + "expected values");
                 }
 
+                _counter++;
+
                 var heartbeatMessageBody = new HeartbeatMessageBody
                 {
-                    timeCreated = DateTime.Now.ToString("hh:mm:ss")
+                    counter = _counter,
+                    timeStamp = DateTime.UtcNow,
                 };
 
                 var jsonMessage = JsonConvert.SerializeObject(heartbeatMessageBody);
@@ -85,7 +89,7 @@ namespace iot.edge.heartbeat
 
                 await client.SendEventAsync("output1", pipeMessage);
 
-                Console.WriteLine($"Heartbeat sent {heartbeatMessageBody.timeCreated}");
+                Console.WriteLine($"Heartbeat {heartbeatMessageBody.counter} sent at {heartbeatMessageBody.timeStamp}");
 
                 Thread.Sleep(Interval);
             }
@@ -145,7 +149,8 @@ namespace iot.edge.heartbeat
 
         private class HeartbeatMessageBody
         {
-            public string timeCreated { get; set; }
+            public int counter {get; set;}
+            public DateTime timeStamp { get; set; }
         }
     }
 }
