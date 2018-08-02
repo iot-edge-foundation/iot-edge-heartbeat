@@ -109,11 +109,11 @@ namespace iot.edge.heartbeat
                 Console.WriteLine("Desired property change:");
                 Console.WriteLine(JsonConvert.SerializeObject(desiredProperties));
 
-                var deviceClient = userContext as DeviceClient;
+                var client = userContext as ModuleClient;
 
-                if (deviceClient == null)
+                if (client == null)
                 {
-                    throw new InvalidOperationException("UserContext doesn't contain " + "expected values");
+                    throw new InvalidOperationException($"UserContext doesn't contain expected ModuleClient");
                 }
 
                 var reportedProperties = new TwinCollection();
@@ -127,7 +127,7 @@ namespace iot.edge.heartbeat
 
                 if (reportedProperties.Count > 0)
                 {
-                    deviceClient.UpdateReportedPropertiesAsync(reportedProperties).ConfigureAwait(false);
+                    client.UpdateReportedPropertiesAsync(reportedProperties).ConfigureAwait(false);
                 }
             }
             catch (AggregateException ex)
