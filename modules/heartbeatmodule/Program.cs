@@ -40,9 +40,8 @@ namespace iot.edge.heartbeat
 
         static async Task Init()
         {
-            MqttTransportSettings mqttSetting = new MqttTransportSettings(TransportType.Mqtt_Tcp_Only);
-
-            ITransportSettings[] settings = { mqttSetting };
+            AmqpTransportSettings amqpSetting = new AmqpTransportSettings(TransportType.Amqp_Tcp_Only);
+            ITransportSettings[] settings = { amqpSetting };
 
             // Open a connection to the Edge runtime
             ModuleClient ioTHubModuleClient = await ModuleClient.CreateFromEnvironmentAsync(settings);
@@ -118,9 +117,12 @@ namespace iot.edge.heartbeat
 
                 var reportedProperties = new TwinCollection();
 
-                if (desiredProperties["interval"] != null)
+                if (desiredProperties.Contains("interval") 
+                        && desiredProperties["interval"] != null)
                 {
                     Interval = desiredProperties["interval"];
+
+                    Console.WriteLine($"Interval changed to {Interval}");
 
                     reportedProperties["interval"] = Interval;
                 }
