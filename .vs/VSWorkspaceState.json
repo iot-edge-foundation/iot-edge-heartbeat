@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Docker"
+    "\\modules",
+    "\\modules\\heartbeatmodule"
   ],
+  "SelectedNode": "\\modules\\heartbeatmodule\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

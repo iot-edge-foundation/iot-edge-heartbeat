@@ -16,7 +16,10 @@ namespace iot.edge.heartbeat
 
     class Program
     {
+        private const int DefaultInterval = 5000;
+
         private static int _counter = 0;
+
         static void Main(string[] args)
         {
             Init().Wait();
@@ -56,6 +59,7 @@ namespace iot.edge.heartbeat
             await ioTHubModuleClient.OpenAsync();
 
             Console.WriteLine("Heartbeat module client initialized.");
+            Console.WriteLine("This module uses output 'output1'");
 
             var thread = new Thread(() => ThreadBody(ioTHubModuleClient));
             thread.Start();
@@ -94,7 +98,7 @@ namespace iot.edge.heartbeat
             }
         }
 
-        private static int Interval { get; set; } = 5000;
+        private static int Interval { get; set; } = DefaultInterval;
 
         private static Task onDesiredPropertiesUpdate(TwinCollection desiredProperties, object userContext)
         {
@@ -117,10 +121,16 @@ namespace iot.edge.heartbeat
 
                 var reportedProperties = new TwinCollection();
 
-                if (desiredProperties.Contains("interval") 
-                        && desiredProperties["interval"] != null)
+                if (desiredProperties.Contains("interval")) 
                 {
-                    Interval = desiredProperties["interval"];
+                    if (desiredProperties["interval"] != null)
+                    {
+                        Interval = desiredProperties["interval"];
+                    }
+                    else
+                    {
+                        Interval = DefaultInterval;
+                    }
 
                     Console.WriteLine($"Interval changed to {Interval}");
 
