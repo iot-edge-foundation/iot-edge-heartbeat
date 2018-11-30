@@ -4,6 +4,6 @@
     "\\modules",
     "\\modules\\heartbeatmodule"
   ],
-  "SelectedNode": "\\modules\\heartbeatmodule\\Program.cs",
+  "SelectedNode": "\\modules\\heartbeatmodule\\iot.edge.heartbeat.csproj",
   "PreviewInSolutionExplorer": false
 }

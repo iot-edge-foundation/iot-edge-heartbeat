@@ -3,3 +3,8 @@ config/
 .vs/iot-edge-heartbeat/v15/.suo
 .vs/slnx.sqlite
 .vs/VSWorkspaceState.json
+.vs/slnx.sqlite
+.suo
+
+slnx.sqlite
+*.sln

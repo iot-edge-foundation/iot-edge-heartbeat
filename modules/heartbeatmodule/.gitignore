@@ -29,6 +29,8 @@ artifacts/
 *.svclog
 *.scc
 .vs
+.suo
+slnx.sqlite
 
 [Bb]in/
 [Oo]bj/
