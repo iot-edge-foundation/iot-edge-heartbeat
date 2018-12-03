@@ -18,7 +18,7 @@ namespace iot.edge.heartbeat
     {
         private const int DefaultInterval = 5000;
 
-        private static int _counter = 0;
+        private static UInt16 _counter = 0;
 
         static void Main(string[] args)
         {
