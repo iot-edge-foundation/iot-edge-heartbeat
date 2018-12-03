@@ -88,6 +88,11 @@ namespace iot.edge.heartbeat
 
                 var pipeMessage = new Message(Encoding.UTF8.GetBytes(jsonMessage));
 
+                // Set message body type and content encoding for routing using decoded body values. 
+                pipeMessage.ContentEncoding = "utf-8"; 
+                pipeMessage.ContentType = "application/json"; 
+                
+                // Set a property as a fingerprint for this module
                 pipeMessage.Properties.Add("content-type", "application/edge-heartbeat-json");
 
                 await client.SendEventAsync("output1", pipeMessage);
