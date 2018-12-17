@@ -1,6 +1,6 @@
 namespace iot.edge.heartbeat
 {
-    using System;
+using System;
     using System.IO;
     using System.Runtime.InteropServices;
     using System.Runtime.Loader;
@@ -9,7 +9,6 @@ namespace iot.edge.heartbeat
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Azure.Devices.Client;
-    using Microsoft.Azure.Devices.Client.Transport.Mqtt;
 
     using Microsoft.Azure.Devices.Shared;
     using Newtonsoft.Json; 
