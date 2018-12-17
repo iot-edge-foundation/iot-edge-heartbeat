@@ -18,6 +18,8 @@ namespace iot.edge.heartbeat
     {
         private const int DefaultInterval = 5000;
 
+        private static string _deviceId; 
+
         private static UInt16 _counter = 0;
 
         static void Main(string[] args)
@@ -58,11 +60,25 @@ namespace iot.edge.heartbeat
 
             await ioTHubModuleClient.OpenAsync();
 
-            Console.WriteLine("Heartbeat module client initialized.");
-            Console.WriteLine("This module uses output 'output1'");
+            Console.WriteLine(@"");
+            Console.WriteLine(@"     /$$$$$$      /$$$$$$  /$$    /$$ /$$$$$$$$ /$$       /$$$$$$$  /$$$$$$$$ ");
+            Console.WriteLine(@"   /$$$__  $$$   /$$__  $$| $$   | $$| $$_____/| $$      | $$__  $$| $$_____/ ");
+            Console.WriteLine(@"  /$$_/  \_  $$ | $$  \__/| $$   | $$| $$      | $$      | $$  \ $$| $$       ");
+            Console.WriteLine(@" /$$/ /$$$$$  $$|  $$$$$$ |  $$ / $$/| $$$$$   | $$      | $$  | $$| $$$$$    ");
+            Console.WriteLine(@"| $$ /$$  $$| $$ \____  $$ \  $$ $$/ | $$__/   | $$      | $$  | $$| $$__/    ");
+            Console.WriteLine(@"| $$| $$\ $$| $$ /$$  \ $$  \  $$$/  | $$      | $$      | $$  | $$| $$       ");
+            Console.WriteLine(@"| $$|  $$$$$$$$/|  $$$$$$/   \  $/   | $$$$$$$$| $$$$$$$$| $$$$$$$/| $$$$$$$$ ");
+            Console.WriteLine(@"|  $$\________/  \______/     \_/    |________/|________/|_______/ |________/ ");
+            Console.WriteLine(@" \  $$$   /$$$                                                                ");
+            Console.WriteLine(@"  \_  $$$$$$_/                                                                ");
+            Console.WriteLine(@"    \______/                                                                  ");
+            Console.WriteLine("Nmea IoT Hub module client initialized.");
+            Console.WriteLine("This module uses outputs 'output1'.");
 
             var thread = new Thread(() => ThreadBody(ioTHubModuleClient));
             thread.Start();
+
+            _deviceId = System.Environment.GetEnvironmentVariable("IOTEDGE_DEVICEID");
         }
 
         private static async void ThreadBody(object userContext)
@@ -80,6 +96,7 @@ namespace iot.edge.heartbeat
 
                 var heartbeatMessageBody = new HeartbeatMessageBody
                 {
+                    deviceId = _deviceId,
                     counter = _counter,
                     timeStamp = DateTime.UtcNow,
                 };
@@ -166,7 +183,10 @@ namespace iot.edge.heartbeat
 
         private class HeartbeatMessageBody
         {
+            public string deviceId {get; set;}
+
             public int counter {get; set;}
+
             public DateTime timeStamp { get; set; }
         }
     }
