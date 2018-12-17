@@ -37,6 +37,7 @@ The output message uses this format:
     ```csharp
     private class HeartbeatMessageBody
     {
+        public string deviceIs {get; set;}
         public int counter {get; set;}
         public DateTime timeStamp { get; set; }
     }
