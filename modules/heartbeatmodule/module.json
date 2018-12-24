@@ -4,9 +4,10 @@
     "image": {
         "repository": "svelde/iot-edge-heartbeat",
         "tag": {
-            "version": "2.2.3",
+            "version": "2.3.0",
             "platforms": {
-                "amd64": "./Dockerfile.amd64"
+                "amd64": "./Dockerfile.amd64",
+                "windows-amd64": "./Dockerfile.windows-amd64"
             }
         },
         "buildOptions": []
