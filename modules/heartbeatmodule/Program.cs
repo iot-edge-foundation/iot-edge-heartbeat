@@ -71,7 +71,7 @@ namespace iot.edge.heartbeat
             Console.WriteLine(@" \  $$$   /$$$                                                                ");
             Console.WriteLine(@"  \_  $$$$$$_/                                                                ");
             Console.WriteLine(@"    \______/                                                                  ");
-            Console.WriteLine("Nmea IoT Hub module client initialized.");
+            Console.WriteLine("Heartbeat IoT Hub module client initialized.");
             Console.WriteLine("This module uses outputs 'output1'.");
 
             var thread = new Thread(() => ThreadBody(ioTHubModuleClient));
