@@ -167,8 +167,8 @@ namespace iot.edge.heartbeat
             {
                 foreach (Exception exception in ex.InnerExceptions)
                 {
-                Console.WriteLine();
-                Console.WriteLine("Error when receiving desired property: {0}", exception);
+                    Console.WriteLine();
+                    Console.WriteLine("Error when receiving desired property: {0}", exception);
                 }
             }
             catch (Exception ex)
