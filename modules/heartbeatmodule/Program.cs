@@ -1,6 +1,7 @@
 namespace iot.edge.heartbeat
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Runtime.InteropServices;
     using System.Runtime.Loader;
@@ -20,6 +21,8 @@ namespace iot.edge.heartbeat
         private static string _deviceId; 
 
         private static UInt16 _counter = 0;
+
+        private static ModuleOutputList _moduleOutputs;
 
         static void Main(string[] args)
         {
@@ -44,21 +47,6 @@ namespace iot.edge.heartbeat
 
         static async Task Init()
         {
-            MqttTransportSettings mqttSetting = new MqttTransportSettings(TransportType.Mqtt_Tcp_Only);
-            ITransportSettings[] settings = { mqttSetting };
-
-            // Open a connection to the Edge runtime
-            ModuleClient ioTHubModuleClient = await ModuleClient.CreateFromEnvironmentAsync(settings);
-
-            // Attach callback for Twin desired properties updates
-            await ioTHubModuleClient.SetDesiredPropertyUpdateCallbackAsync(onDesiredPropertiesUpdate, ioTHubModuleClient);
-
-            // Execute callback method for Twin desired properties updates
-            var twin = await ioTHubModuleClient.GetTwinAsync();
-            await onDesiredPropertiesUpdate(twin.Properties.Desired, ioTHubModuleClient);
-
-            await ioTHubModuleClient.OpenAsync();
-
             Console.WriteLine(@"");
             Console.WriteLine(@"     /$$$$$$      /$$$$$$  /$$    /$$ /$$$$$$$$ /$$       /$$$$$$$  /$$$$$$$$ ");
             Console.WriteLine(@"   /$$$__  $$$   /$$__  $$| $$   | $$| $$_____/| $$      | $$__  $$| $$_____/ ");
@@ -72,12 +60,37 @@ namespace iot.edge.heartbeat
             Console.WriteLine(@"  \_  $$$$$$_/                                                                ");
             Console.WriteLine(@"    \______/                                                                  ");
             Console.WriteLine("Heartbeat IoT Hub module client initialized.");
-            Console.WriteLine("This module uses outputs 'output1'.");
+
+            MqttTransportSettings mqttSetting = new MqttTransportSettings(TransportType.Mqtt_Tcp_Only);
+            ITransportSettings[] settings = { mqttSetting };
+
+            // Open a connection to the Edge runtime
+            var ioTHubModuleClient = await ModuleClient.CreateFromEnvironmentAsync(settings);
+
+            AddOutputs(ioTHubModuleClient);
+
+            _moduleOutputs.WriteOutputInfo();
+
+            // Attach callback for Twin desired properties updates
+            await ioTHubModuleClient.SetDesiredPropertyUpdateCallbackAsync(onDesiredPropertiesUpdate, ioTHubModuleClient);
+
+            // Execute callback method for Twin desired properties updates
+            var twin = await ioTHubModuleClient.GetTwinAsync();
+            await onDesiredPropertiesUpdate(twin.Properties.Desired, ioTHubModuleClient);
+
+            await ioTHubModuleClient.OpenAsync();
 
             var thread = new Thread(() => ThreadBody(ioTHubModuleClient));
             thread.Start();
 
             _deviceId = System.Environment.GetEnvironmentVariable("IOTEDGE_DEVICEID");
+        }
+
+        private static void AddOutputs(ModuleClient ioTHubModuleClient)
+        {
+            _moduleOutputs = new ModuleOutputList();
+
+            var addedOutput1 = _moduleOutputs.Add(new ModuleOutput("output1", ioTHubModuleClient, "heartbeat"));
         }
 
         private static async void ThreadBody(object userContext)
@@ -100,18 +113,7 @@ namespace iot.edge.heartbeat
                     timeStamp = DateTime.UtcNow,
                 };
 
-                var jsonMessage = JsonConvert.SerializeObject(heartbeatMessageBody);
-
-                var pipeMessage = new Message(Encoding.UTF8.GetBytes(jsonMessage));
-
-                // Set message body type and content encoding for routing using decoded body values. 
-                pipeMessage.ContentEncoding = "utf-8"; 
-                pipeMessage.ContentType = "application/json"; 
-                
-                // Set a property as a fingerprint for this module
-                pipeMessage.Properties.Add("content-type", "application/edge-heartbeat-json");
-
-                await client.SendEventAsync("output1", pipeMessage);
+                await _moduleOutputs.GetModuleOutput("output1")?.SendMessage(heartbeatMessageBody);
 
                 Console.WriteLine($"Heartbeat {heartbeatMessageBody.counter} sent at {heartbeatMessageBody.timeStamp}");
 
