@@ -1,5 +1,6 @@
 namespace iot.edge.heartbeat
 {
+    using System;
     using System.Collections.Generic;
     using System.Text;
     using System.Threading;
@@ -45,7 +46,14 @@ namespace iot.edge.heartbeat
                 message.Properties.Add(p);
             }
 
-            await _ioTHubModuleClient.SendEventAsync(Name, message);
+            try
+            {
+                await _ioTHubModuleClient.SendEventAsync(Name, message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception '{ex.Message}' while sending output message '{jsonMessage}'");
+            }
         }
 
         private void Initialize(string name, ModuleClient ioTHubModuleClient) 
