@@ -35,24 +35,25 @@ namespace iot.edge.heartbeat
         {
             var jsonMessage = JsonConvert.SerializeObject(messageBody);
 
-            var message = new Message(Encoding.UTF8.GetBytes(jsonMessage));
+            using (var message = new Message(Encoding.UTF8.GetBytes(jsonMessage)))
+            { 
+                // Set message body type and content encoding for routing using decoded body values.
+                message.ContentEncoding = "utf-8";
+                message.ContentType = "application/json";
 
-            // Set message body type and content encoding for routing using decoded body values.
-            message.ContentEncoding = "utf-8";
-            message.ContentType = "application/json";
+                foreach (var p in Properties)
+                {
+                    message.Properties.Add(p);
+                }
 
-            foreach (var p in Properties)
-            {
-                message.Properties.Add(p);
-            }
-
-            try
-            {
-                await _ioTHubModuleClient.SendEventAsync(Name, message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exception '{ex.Message}' while sending output message '{jsonMessage}'");
+                try
+                {
+                    await _ioTHubModuleClient.SendEventAsync(Name, message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Exception '{ex.Message}' while sending output message '{jsonMessage}'");
+                }
             }
         }
 
