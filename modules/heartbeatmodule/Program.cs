@@ -47,19 +47,20 @@ namespace iot.edge.heartbeat
 
         static async Task Init()
         {
-            Console.WriteLine(@"");
-            Console.WriteLine(@"     /$$$$$$      /$$$$$$  /$$    /$$ /$$$$$$$$ /$$       /$$$$$$$  /$$$$$$$$ ");
-            Console.WriteLine(@"   /$$$__  $$$   /$$__  $$| $$   | $$| $$_____/| $$      | $$__  $$| $$_____/ ");
-            Console.WriteLine(@"  /$$_/  \_  $$ | $$  \__/| $$   | $$| $$      | $$      | $$  \ $$| $$       ");
-            Console.WriteLine(@" /$$/ /$$$$$  $$|  $$$$$$ |  $$ / $$/| $$$$$   | $$      | $$  | $$| $$$$$    ");
-            Console.WriteLine(@"| $$ /$$  $$| $$ \____  $$ \  $$ $$/ | $$__/   | $$      | $$  | $$| $$__/    ");
-            Console.WriteLine(@"| $$| $$\ $$| $$ /$$  \ $$  \  $$$/  | $$      | $$      | $$  | $$| $$       ");
-            Console.WriteLine(@"| $$|  $$$$$$$$/|  $$$$$$/   \  $/   | $$$$$$$$| $$$$$$$$| $$$$$$$/| $$$$$$$$ ");
-            Console.WriteLine(@"|  $$\________/  \______/     \_/    |________/|________/|_______/ |________/ ");
-            Console.WriteLine(@" \  $$$   /$$$                                                                ");
-            Console.WriteLine(@"  \_  $$$$$$_/                                                                ");
-            Console.WriteLine(@"    \______/                                                                  ");
-            Console.WriteLine("Heartbeat IoT Hub module client initialized.");
+            Console.WriteLine("      _                         ___      _____   ___     _");
+            Console.WriteLine("     /_\\   ___ _  _  _ _  ___  |_ _| ___|_   _| | __| __| | __ _  ___  ");
+            Console.WriteLine("    / _ \\ |_ /| || || '_|/ -_)  | | / _ \\ | |   | _| / _` |/ _` |/ -_)");
+            Console.WriteLine("   /_/ \\_\\/__| \\_,_||_|  \\___| |___|\\___/ |_|   |___|\\__,_|\\__, |\\___|");
+            Console.WriteLine("                                                           |___/");
+
+            Console.WriteLine("    _  _              _   _              _    ");
+            Console.WriteLine("   | || |___ __ _ _ _| |_| |__  ___ __ _| |_  ");
+            Console.WriteLine("   | __ / -_) _` | '_|  _| '_ \\/ -_) _` |  _| ");
+            Console.WriteLine("   |_||_\\___\\__,_|_|  \\__|_.__/\\___\\__,_|\\__| ");
+
+            Console.WriteLine(" ");
+            Console.WriteLine("   Copyright © 2019 - IoT Edge Foundation");
+            Console.WriteLine(" ");
 
             MqttTransportSettings mqttSetting = new MqttTransportSettings(TransportType.Mqtt_Tcp_Only);
             ITransportSettings[] settings = { mqttSetting };
