@@ -12,7 +12,7 @@ This module can be used to generate a constant heartbeat coming from the IoT Edg
 
 A version generated for Docker Linux can be found at https://hub.docker.com/r/svelde/iot-edge-heartbeat/
 
-You can pull it with **docker pull svelde/iot-edge-heartbeat** but I suggest to use **svelde/iot-edge-heartbeat:1.0** when you deploy it using the Azure portal.
+You can pull it with **docker pull svelde/iot-edge-heartbeat** but I suggest to use **svelde/iot-edge-heartbeat:2.4.0** when you deploy it using the Azure portal.
 
 ## Module Twin
 
@@ -34,31 +34,42 @@ The messages created are sent using output **output1**
 
 The output message uses this format:
 
-    ```csharp
-    private class HeartbeatMessageBody
-    {
-        public string deviceIs {get; set;}
-        public int counter {get; set;}
-        public DateTime timeStamp { get; set; }
-    }
-    ```
+```
+private class HeartbeatMessageBody
+{
+    public string deviceIs {get; set;}
+    public int counter {get; set;}
+    public DateTime timeStamp { get; set; }
+}
+```
 
 the message is sent with the following message property:
 
 - "content-type", "application/edge-heartbeat-json"
 
-## Code example
+## Direct methods
 
-This module was based on an Public Preview example shown [here](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module)
+### getCount
 
-With the introduction of General Available, some breaking changes are introduced. A new ModuleClient is introduced to replace the DeviceClient.
+With the Direct method 'getCount', you can read the current counter.
 
-I have updated the code. Due to some changes in the project structure my project is a bit behind.
+As a response you get:
+
+```
+public class GetCountResponse 
+{
+    public int count { get; set; }
+    public int responseState { get; set; }
+    public string errorMessage { get; set; }
+}
+```
 
 ## Contribute
 
 This logic is licenced under the MIT license.
 
-Want to contribute? Throw me a pull request....
+The IoT Edge Heartbeat module was developed by [Sander van de Velde](http://blog.vandevelde-online.com).
 
-Want to know more about me? Check out my [blog](http://blog.vandevelde-online.com)
+This module is now donated to the IoT Edge Foundation.
+
+Want to contribute? Throw a pull request....

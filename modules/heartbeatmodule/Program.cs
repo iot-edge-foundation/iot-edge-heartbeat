@@ -12,7 +12,7 @@ namespace iot.edge.heartbeat
     using Microsoft.Azure.Devices.Client;
     using Microsoft.Azure.Devices.Client.Transport.Mqtt;
     using Microsoft.Azure.Devices.Shared;
-    using Newtonsoft.Json; 
+    using Newtonsoft.Json;
 
     class Program
     {
@@ -80,6 +80,13 @@ namespace iot.edge.heartbeat
             await onDesiredPropertiesUpdate(twin.Properties.Desired, ioTHubModuleClient);
 
             await ioTHubModuleClient.OpenAsync();
+
+            await ioTHubModuleClient.SetMethodHandlerAsync(
+                "getCount",
+                getCountMethodCallBack,
+                ioTHubModuleClient);
+
+            Console.WriteLine("Attached method handler: getCount");   
 
             var thread = new Thread(() => ThreadBody(ioTHubModuleClient));
             thread.Start();
@@ -183,13 +190,26 @@ namespace iot.edge.heartbeat
             return Task.CompletedTask;
         }
 
-        private class HeartbeatMessageBody
+        static async Task<MethodResponse> getCountMethodCallBack(MethodRequest methodRequest, object userContext)        
         {
-            public string deviceId {get; set;}
+            var getCountResponse = new GetCountResponse{ responseState = 0 };
 
-            public int counter {get; set;}
+            try
+            {
+                getCountResponse.count = _counter;                   
+            }
+            catch (Exception ex)
+            {
+               getCountResponse.errorMessage = ex.Message;   
+               getCountResponse.responseState = -999;
+            }            
 
-            public DateTime timeStamp { get; set; }
+            var json = JsonConvert.SerializeObject(getCountResponse);
+            var response = new MethodResponse(Encoding.UTF8.GetBytes(json), 200);
+
+            await Task.Delay(TimeSpan.FromSeconds(0));
+
+            return response;
         }
     }
 }
