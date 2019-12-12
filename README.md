@@ -20,11 +20,25 @@ You can pull it with **docker pull svelde/iot-edge-heartbeat** but I suggest to 
 
 This module supports one 'desired' property in the module twin:
 
-- "interval":5000
+- "interval" : 10000
+
+or 
+
+```
+"desired": {
+    "interval" : 10000
+}
+```
 
 This alters the interval of the heartbeat in milliseconds. The default value is 5000.
 
-After reading this value, the module will report the value back.
+After reading this desired property, the module will report the value back as reported property:
+
+```
+"reported": {
+    "interval" : 10000
+}
+```
 
 ## Routing input and outputs
 
@@ -39,7 +53,7 @@ The output message uses this format:
 ```
 private class HeartbeatMessageBody
 {
-    public string deviceIs {get; set;}
+    public string deviceId {get; set;}
     public int counter {get; set;}
     public DateTime timeStamp { get; set; }
 }

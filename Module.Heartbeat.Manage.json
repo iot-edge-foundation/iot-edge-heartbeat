@@ -1,0 +1,109 @@
+{
+  "@id": "urn:4amslkud:heartbeat:manage:1",
+  "@type": "Interface",
+  "displayName": {
+    "en": "Manage"
+  },
+  "contents": [
+    {
+      "@id": "urn:4amslkud:heartbeat:manage:interval:1",
+      "@type": "Property",
+      "comment": "Milliseconds",
+      "description": {
+        "en": "Interval of heartbeat"
+      },
+      "displayName": {
+        "en": "Interval"
+      },
+      "name": "interval",
+      "writable": true,
+      "displayUnit": {
+        "en": "ms"
+      },
+      "schema": "integer"
+    },
+    {
+      "@id": "urn:4amslkud:heartbeat:manage:getCount:1",
+      "@type": "Command",
+      "commandType": "synchronous",
+      "response": {
+        "@id": "urn:4amslkud:heartbeat:manage:getCount:count:1",
+        "@type": "SchemaField",
+        "displayName": {
+          "en": "count"
+        },
+        "name": "count",
+        "schema": {
+          "@id": "urn:4amslkud:heartbeat:manage:getCount:count:qtrciblk:1",
+          "@type": "Object",
+          "displayName": {
+            "en": "Object"
+          },
+          "fields": [
+            {
+              "@id": "urn:4amslkud:heartbeat:manage:getCount:count:qtrciblk:count:1",
+              "@type": "SchemaField",
+              "displayName": {
+                "en": "count"
+              },
+              "name": "count",
+              "schema": "integer"
+            },
+            {
+              "@id": "urn:4amslkud:heartbeat:manage:getCount:count:qtrciblk:responseState:1",
+              "@type": "SchemaField",
+              "displayName": {
+                "en": "responseState"
+              },
+              "name": "responseState",
+              "schema": "integer"
+            },
+            {
+              "@id": "urn:4amslkud:heartbeat:manage:getCount:count:qtrciblk:errorMessage:1",
+              "@type": "SchemaField",
+              "displayName": {
+                "en": "errorMessage"
+              },
+              "name": "errorMessage",
+              "schema": "string"
+            }
+          ]
+        }
+      },
+      "displayName": {
+        "en": "GetCount"
+      },
+      "name": "getCount"
+    },
+    {
+      "@id": "urn:4amslkud:heartbeat:manage:deviceId:1",
+      "@type": "Telemetry",
+      "displayName": {
+        "en": "DeviceId"
+      },
+      "name": "deviceId",
+      "schema": "string"
+    },
+    {
+      "@id": "urn:4amslkud:heartbeat:manage:counter:1",
+      "@type": "Telemetry",
+      "displayName": {
+        "en": "Counter"
+      },
+      "name": "counter",
+      "schema": "integer"
+    },
+    {
+      "@id": "urn:4amslkud:heartbeat:manage:timeStamp:1",
+      "@type": "Telemetry",
+      "displayName": {
+        "en": "TimeStamp"
+      },
+      "name": "timeStamp",
+      "schema": "dateTime"
+    }
+  ],
+  "@context": [
+    "http://azureiot.com/v1/contexts/IoTModel.json"
+  ]
+}
