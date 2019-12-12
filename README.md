@@ -8,6 +8,8 @@ This is a C# .Net Standard module, written for Azure IoTEdge version GA.
 
 This module can be used to generate a constant heartbeat coming from the IoT Edge module or IoT Edge devices which host this module.
 
+You can also check for quality of the connection or for missing telemetry using the counter provided.
+
 ## Docker Hub
 
 A version generated for Docker Linux can be found at https://hub.docker.com/r/svelde/iot-edge-heartbeat/
@@ -68,7 +70,7 @@ public class GetCountResponse
 
 This logic is licenced under the MIT license.
 
-The IoT Edge Heartbeat module was developed by [Sander van de Velde](http://blog.vandevelde-online.com).
+The IoT Edge Heartbeat module was originally developed by [Sander van de Velde](http://blog.vandevelde-online.com).
 
 This module is now donated to the IoT Edge Foundation.
 
