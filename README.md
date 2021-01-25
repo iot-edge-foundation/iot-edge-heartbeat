@@ -86,6 +86,6 @@ This logic is licenced under the MIT license.
 
 The IoT Edge Heartbeat module was originally developed by [Sander van de Velde](http://blog.vandevelde-online.com).
 
-This module is now donated to the IoT Edge Foundation.
+This module is now donated to the [IoT Edge Foundation](https://github.com/iot-edge-foundation/iot-edge-heartbeat).
 
 Want to contribute? Throw a pull request....
