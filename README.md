@@ -12,9 +12,9 @@ You can also check for quality of the connection or for missing telemetry using 
 
 ## Docker Hub
 
-A version generated for Docker Linux can be found at https://hub.docker.com/r/svelde/iot-edge-heartbeat/
+A version generated for Docker Linux can be found at https://hub.docker.com/r/iotedgefoundation/iot-edge-heartbeat/
 
-You can pull it with **docker pull svelde/iot-edge-heartbeat** but I suggest to use **svelde/iot-edge-heartbeat:2.4.0** when you deploy it using the Azure portal.
+You can pull it with **docker pull iotedgefoundation/iot-edge-heartbeat** but I suggest to use **iotedgefoundation/iot-edge-heartbeat:3.2.0** when you deploy it using the Azure portal.
 
 ## Module Twin
 

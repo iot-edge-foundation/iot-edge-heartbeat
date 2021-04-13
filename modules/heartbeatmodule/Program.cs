@@ -87,6 +87,8 @@ namespace iot.edge.heartbeat
                 ioTHubModuleClient);
 
             Console.WriteLine("Attached method handler: getCount");   
+            Console.WriteLine("Attached output: output1");
+            Console.WriteLine("Supported desired properties: 'interval'.");
 
             var thread = new Thread(() => ThreadBody(ioTHubModuleClient));
             thread.Start();
