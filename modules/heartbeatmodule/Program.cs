@@ -18,11 +18,15 @@ namespace iot.edge.heartbeat
     {
         private const int DefaultInterval = 5000;
 
-        private static string _deviceId; 
+        private static string _moduleId;
+
+        private static string _deviceId;
 
         private static UInt16 _counter = 0;
 
         private static ModuleOutputList _moduleOutputs;
+
+        private static DateTime _lastMessageSent = DateTime.MinValue;
 
         static void Main(string[] args)
         {
@@ -47,6 +51,9 @@ namespace iot.edge.heartbeat
 
         static async Task Init()
         {
+            _deviceId = System.Environment.GetEnvironmentVariable("IOTEDGE_DEVICEID");
+            _moduleId = Environment.GetEnvironmentVariable("IOTEDGE_MODULEID");
+
             Console.WriteLine("      _                         ___      _____   ___     _");
             Console.WriteLine("     /_\\   ___ _  _  _ _  ___  |_ _| ___|_   _| | __| __| | __ _  ___  ");
             Console.WriteLine("    / _ \\ |_ /| || || '_|/ -_)  | | / _ \\ | |   | _| / _` |/ _` |/ -_)");
@@ -81,6 +88,8 @@ namespace iot.edge.heartbeat
 
             await ioTHubModuleClient.OpenAsync();
 
+            Console.WriteLine($"Module '{_deviceId}'-'{_moduleId}' initialized.");
+
             await ioTHubModuleClient.SetMethodHandlerAsync(
                 "getCount",
                 getCountMethodCallBack,
@@ -92,8 +101,6 @@ namespace iot.edge.heartbeat
 
             var thread = new Thread(() => ThreadBody(ioTHubModuleClient));
             thread.Start();
-
-            _deviceId = System.Environment.GetEnvironmentVariable("IOTEDGE_DEVICEID");
         }
 
         private static void AddOutputs(ModuleClient ioTHubModuleClient)
@@ -127,7 +134,12 @@ namespace iot.edge.heartbeat
 
                 Console.WriteLine($"Heartbeat {heartbeatMessageBody.counter} sent at {heartbeatMessageBody.timeStamp}");
 
-                Thread.Sleep(Interval);
+                while (DateTime.Now < _lastMessageSent.AddSeconds(Interval))
+                {
+                    Thread.Sleep(500);                    
+                }
+
+                _lastMessageSent = DateTime.Now;
             }
         }
 
