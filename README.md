@@ -40,6 +40,8 @@ After reading this desired property, the module will report the value back as re
 }
 ```
 
+We recommend checking the "Module Twin" for reported configuration to make sure values are correctly propagated.
+
 ## Routing input and outputs
 
 This module has no logic attached to the routing input.
