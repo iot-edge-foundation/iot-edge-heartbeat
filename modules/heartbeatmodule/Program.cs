@@ -132,14 +132,14 @@ namespace iot.edge.heartbeat
 
                 await _moduleOutputs.GetModuleOutput("output1")?.SendMessage(heartbeatMessageBody);
 
-                Console.WriteLine($"Heartbeat {heartbeatMessageBody.counter} sent at {heartbeatMessageBody.timeStamp}");
+                _lastMessageSent = DateTime.UtcNow;
 
-                while (DateTime.Now < _lastMessageSent.AddSeconds(Interval))
+                Console.WriteLine($"Heartbeat {heartbeatMessageBody.counter} sent at {heartbeatMessageBody.timeStamp}; Next message scheduled for {_lastMessageSent.AddMilliseconds(Interval)}");
+
+                while (DateTime.UtcNow < _lastMessageSent.AddMilliseconds(Interval))
                 {
                     Thread.Sleep(500);                    
                 }
-
-                _lastMessageSent = DateTime.Now;
             }
         }
 
