@@ -126,6 +126,7 @@ namespace iot.edge.heartbeat
                 var heartbeatMessageBody = new HeartbeatMessageBody
                 {
                     deviceId = _deviceId,
+                    messageType = "iotedgefoundation:iot:edge:heartbeat;1",
                     counter = _counter,
                     timeStamp = DateTime.UtcNow,
                 };
