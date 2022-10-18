@@ -81,10 +81,13 @@ As a response you get:
 public class GetCountResponse 
 {
     public int count { get; set; }
+    public string messageType {get; set;}
     public int responseState { get; set; }
     public string errorMessage { get; set; }
 }
 ```
+
+The 'messageType'will havde the format like 'iotedgefoundation:iot:edge:heartbeat;1'; 
 
 ## Contribute
 

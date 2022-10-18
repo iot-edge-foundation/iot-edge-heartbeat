@@ -6,6 +6,8 @@ namespace iot.edge.heartbeat
     {
         public string deviceId {get; set;}
 
+        public string messageType {get; set;}
+
         public int counter {get; set;}
 
         public DateTime timeStamp { get; set; }
