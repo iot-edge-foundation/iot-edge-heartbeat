@@ -28,7 +28,7 @@ or
 ```
 "desired": {
     "interval" : 10000,
-    "messageType" : "MyCompany:Heartbeat;1"
+    "messageType" : "mycompany:heartbeat;1"
 }
 ```
 
@@ -61,11 +61,13 @@ private class HeartbeatMessageBody
     public string deviceId {get; set;}
     public int counter {get; set;}
     public DateTime timeStamp { get; set; }
-    public string messageType { get; set; }
+    public string messageType { get; set; }   // only when desired property 'messageType' is filled 
 }
 ```
 
-the message is sent with the following message property:
+If provided, the 'messageType' needs to support a format like 'mycompany:heartbeat;1'; 
+
+The message is sent with the following application message property:
 
 - "content-type", "application/edge-heartbeat-json"
 
@@ -86,8 +88,6 @@ public class GetCountResponse
     public string errorMessage { get; set; }
 }
 ```
-
-The 'messageType'will havde the format like 'iotedgefoundation:iot:edge:heartbeat;1'; 
 
 ## Contribute
 
