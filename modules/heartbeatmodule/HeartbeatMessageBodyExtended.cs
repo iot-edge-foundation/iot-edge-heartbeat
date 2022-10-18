@@ -4,6 +4,6 @@ namespace iot.edge.heartbeat
 
     public class HeartbeatMessageBodyExtended: HeartbeatMessageBody
     {
-        public string messageType { get; set; }
+        public string messagetype { get; set; }
     }
 }

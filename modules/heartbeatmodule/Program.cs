@@ -22,7 +22,7 @@ namespace iot.edge.heartbeat
 
         private static string _deviceId;
 
-        private static string _messageType;
+        private static string _messagetype;
 
         private static UInt16 _counter = 0;
 
@@ -100,7 +100,7 @@ namespace iot.edge.heartbeat
             Console.WriteLine("Attached method handler: getCount");   
             Console.WriteLine("Attached output: output1");
             Console.WriteLine("Supported desired properties: 'interval'.");
-            Console.WriteLine("Supported desired properties: 'messageType'.");
+            Console.WriteLine("Supported desired properties: 'messagetype'.");
 
             var thread = new Thread(() => ThreadBody(ioTHubModuleClient));
             thread.Start();
@@ -128,7 +128,7 @@ namespace iot.edge.heartbeat
 
                 var heartbeatMessageBody =  new HeartbeatMessageBody();
 
-                if (string.IsNullOrEmpty(_messageType))
+                if (string.IsNullOrEmpty(_messagetype))
                 {    
                     heartbeatMessageBody = new HeartbeatMessageBody
                     {
@@ -144,7 +144,7 @@ namespace iot.edge.heartbeat
                         deviceId = _deviceId,
                         counter = _counter,
                         timeStamp = DateTime.UtcNow,
-                        messageType = _messageType
+                        messagetype = _messagetype
                     };
                 }
 
@@ -200,20 +200,20 @@ namespace iot.edge.heartbeat
                     reportedProperties["interval"] = Interval;
                 }
 
-                if (desiredProperties.Contains("messageType")) 
+                if (desiredProperties.Contains("messagetype")) 
                 {
-                    if (desiredProperties["messageType"] != null)
+                    if (desiredProperties["messagetype"] != null)
                     {
-                        _messageType = desiredProperties["messageType"];
+                        _messagetype = desiredProperties["messagetype"];
                     }
                     else
                     {
-                        _messageType = null;
+                        _messagetype = null;
                     }
 
-                    Console.WriteLine($"messageType changed to {_messageType}");
+                    Console.WriteLine($"messagetype changed to {_messagetype}");
 
-                    reportedProperties["messageType"] = Interval;
+                    reportedProperties["messagetype"] = _messagetype;
                 }
 
                 if (reportedProperties.Count > 0)

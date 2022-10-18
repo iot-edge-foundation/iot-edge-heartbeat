@@ -21,14 +21,14 @@ You can pull it with **docker pull iotedgefoundation/iot-edge-heartbeat** but I 
 This module supports one 'desired' property in the module twin:
 
 - "interval" : 10000
-- "messageType" : "<MyCompany>:Heartbeat;<version>"
+- "messagetype" : "<MyCompany>:Heartbeat;<version>"
 
 or 
 
 ```
 "desired": {
     "interval" : 10000,
-    "messageType" : "mycompany:heartbeat;1"
+    "messagetype" : "mycompany:heartbeat;1"
 }
 ```
 
@@ -39,7 +39,7 @@ After reading this desired property, the module will report the value back as re
 ```
 "reported": {
     "interval" : 10000,
-    "messageType" : "MyCompany:Heartbeat;1"
+    "messagetype" : "MyCompany:Heartbeat;1"
 }
 ```
 
@@ -61,11 +61,11 @@ private class HeartbeatMessageBody
     public string deviceId {get; set;}
     public int counter {get; set;}
     public DateTime timeStamp { get; set; }
-    public string messageType { get; set; }   // only when desired property 'messageType' is filled 
+    public string messagetype { get; set; }   // only when desired property 'messagetype' is filled 
 }
 ```
 
-If provided, the 'messageType' needs to support a format like 'mycompany:heartbeat;1'; 
+If provided, the 'messagetype' needs to support a format like 'mycompany:heartbeat;1'; 
 
 The message is sent with the following application message property:
 
