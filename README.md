@@ -51,6 +51,10 @@ This module has no logic attached to the routing input.
 
 The messages created are sent using output **output1**
 
+```
+FROM /messages/modules/heartbeat/outputs/output1 into $upstream
+```
+
 ## Output messages
 
 The output message uses this format:
