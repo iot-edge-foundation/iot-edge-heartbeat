@@ -18,7 +18,7 @@ You can pull it with **docker pull iotedgefoundation/iot-edge-heartbeat** but I 
 
 ## Module Twin
 
-This module supports one 'desired' property in the module twin:
+This module supports two 'desired' properties in the module twin:
 
 - "interval" : 10000
 - "messagetype" : "<MyCompany>:Heartbeat;<version>"
@@ -31,6 +31,8 @@ or
     "messagetype" : "mycompany:heartbeat;1"
 }
 ```
+
+*Note*: leave out '"desired" :' in the Set Modules wizard.
 
 This alters the interval of the heartbeat in milliseconds. The default value is 5000.
 
